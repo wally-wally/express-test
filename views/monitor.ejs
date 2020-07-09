@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="monitor">
+      <iframe src="/init" width="600" height="300" frameborder="0"></iframe>
+      <hr>
+      <button id="reset">입력 페이지로 이동</button>
+    </div>
+    <script>
+      const iframeTag = document.querySelector('iframe');
+      const period = sessionStorage.getItem('period');
+      const domains = JSON.parse(sessionStorage.getItem('domains'));
+      const resetButton = document.querySelector('button#reset');
+    
+      let nowPageIdx = -1;
+      setInterval(() => {
+        nowPageIdx += 1;
+        iframeTag.src = domains[nowPageIdx % domains.length];
+      }, period * 1000);
+    
+      resetButton.addEventListener('click', () => {
+        location.href = '/';
+      });
+    </script>
+  </body>
+</html>
